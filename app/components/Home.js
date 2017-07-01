@@ -9,7 +9,7 @@ import Swiper from "react-native-swiper";
 
 import { HomeStore } from "../stores/home";
 import { bigImages } from "../constants/data";
-import { ServicesGrid } from "./lib";
+import { ServicesGrid, HomeTipcs, Activities } from "./lib";
 
 @inject("homeStore")
 @observer
@@ -58,6 +58,8 @@ export default class Home extends Component {
           )}
         </Swiper>
         <ServicesGrid />
+        <HomeTipcs />
+        <Activities />
         <Text>123</Text>
       </ScrollView>
     );
