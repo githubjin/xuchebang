@@ -3,7 +3,8 @@
  */
 import React, { Component } from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
-
+import Icon from "react-native-vector-icons/SimpleLineIcons";
+import IonIcon from "react-native-vector-icons/Ionicons";
 import { UiButton } from "./lib";
 
 export default class Topics extends Component {
@@ -12,30 +13,136 @@ export default class Topics extends Component {
       <View>
         <Header />
         <Statistics />
-        <DingDan />
+        <DingDanBox />
+        <Others />
       </View>
     );
   }
 }
 
-function DingDan() {
+function DingDanBox() {
   return (
-    <View style={{ marginVertical: 10 }}>
+    <View
+      style={{
+        marginVertical: 10,
+        backgroundColor: "#ffffff",
+        shadowColor: "rgba(0,0,0,0.04)",
+        shadowOffset: { width: 1, height: 1 },
+        shadowOpacity: 1,
+        shadowRadius: 1
+      }}
+    >
       <View
         style={{
           flexDirection: "row",
           justifyContent: "space-between",
-          marginVertical: 8,
-          marginHorizontal: 15
+          paddingVertical: 8,
+          paddingHorizontal: 15,
+          shadowColor: "rgba(0,0,0,0.04)",
+          shadowOffset: { width: 0, height: 1 },
+          shadowOpacity: 1,
+          shadowRadius: 1
         }}
       >
-        <View>
-          <Text>我的订单</Text>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center"
+          }}
+        >
+          <Icon name="event" size={16} color="#ffc341" />
+          <Text
+            style={{
+              marginLeft: 3,
+              fontSize: 15,
+              color: "#333333"
+            }}
+          >
+            我的订单
+          </Text>
         </View>
-        <View>
-          <Text>全部订单</Text>
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <Text style={{ fontSize: 13, color: "#999999", marginRight: 3 }}>
+            全部订单
+          </Text>
+          <Icon name="arrow-right" size={12} color="#999999" />
         </View>
       </View>
+      <View
+        style={{
+          flexDirection: "row",
+          paddingTop: 5,
+          paddingBottom: 6
+        }}
+      >
+        <DingDanItem icon="hourglass" label="待支付" />
+        <DingDanItem icon="clock" label="服务中" />
+        <DingDanItem icon="like" label="待评价" />
+      </View>
+    </View>
+  );
+}
+
+function Others() {
+  return (
+    <View
+      style={{
+        flexDirection: "row",
+        flexWrap: "wrap",
+        backgroundColor: "#ffffff"
+      }}
+    >
+      <OtherItem icon="md-car" label="我的车库" />
+      <OtherItem icon="logo-buffer" label="积分任务" color="#ffc341" />
+      <OtherItem icon="ios-cart" label="积分商城" color="rgb(255, 195, 65)" />
+      <OtherItem icon="ios-megaphone" label="热门活动" color="rgb(255, 130, 0)" />
+      <Image
+        source={{
+          uri: "https://img06.lechebangstatic.com/my/user/wash708593eedc.png"
+        }}
+        style={{ width: "33%" }}
+      />
+      <OtherItem icon="logo-yen" label="邀请有礼" color="rgb(255, 130, 0)" />
+      <OtherItem icon="ios-headset" label="客服中心" color="#32c8fa" />
+      <OtherItem icon="ios-create" label="意见反馈" color="rgb(50, 200, 250)" />
+      <OtherItem icon="ios-thumbs-up" label="好评送积分" color="#fa5a4b" />
+    </View>
+  );
+}
+function OtherItem({ icon, label, color = "#96d20a" }) {
+  return (
+    <View
+      style={{
+        width: "33%",
+        alignItems: "center",
+        paddingVertical: 18,
+        borderBottomColor: "#f1f1f1",
+        borderBottomWidth: 1,
+        borderStyle: "solid",
+        borderLeftColor: "#f1f1f1",
+        borderLeftWidth: 1
+      }}
+    >
+      <IonIcon name={icon} size={19} color={color} />
+      <Text style={{ fontSize: 13, color: "#333333", marginTop: 10 }}>
+        {label}
+      </Text>
+    </View>
+  );
+}
+
+function DingDanItem({ icon, label }) {
+  return (
+    <View style={{ width: "33%", alignItems: "center" }}>
+      <Icon
+        name={icon}
+        size={20}
+        color="#999999"
+        style={{ marginVertical: 3 }}
+      />
+      <Text style={{ fontSize: 13, color: "#666666" }}>
+        {label}
+      </Text>
     </View>
   );
 }
