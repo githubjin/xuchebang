@@ -39,7 +39,7 @@ function TabbarIcon({
   focused: boolean,
   icon: string
 }): React.Element {
-  console.log(focused, icon);
+  // console.log(focused, icon);
   return (
     <Image
       source={focused ? icons.selected[`_${icon}`] : icons.default[`_${icon}`]}

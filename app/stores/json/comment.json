@@ -1,0 +1,35 @@
+{
+  "actualPrice": 455,
+  "alreadyThumbuped": false,
+  "cityId": 10804,
+  "commentCount": 0,
+  "commentDate": 1498817686375,
+  "content": "已经是第二次使用了，4S店服务一流，价钱的确有优惠，以后还会继续使用。",
+  "firstLevelCarType": "丰田",
+  "fullCarType": "丰田||一汽丰田||威驰",
+  "id": 289214,
+  "marketPrice": 647,
+  "nickname": "JACK",
+  "pictures": [
+    {
+      "height": 300,
+      "path": "https://ocpvh3dgz.qnssl.com/public/2017/6/30/ead3963a2f060a3cab952332b4a121af.jpg-watermark",
+      "thumbnailPath": "https://ocpvh3dgz.qnssl.com/public/2017/6/30/ead3963a2f060a3cab952332b4a121af.jpg-thumbnail",
+      "width": 225
+    },
+    {
+      "height": 300,
+      "path": "https://ocpvh3dgz.qnssl.com/public/2017/6/30/d74d37d11bef2a273aa71ab318e728a8.jpg-watermark",
+      "thumbnailPath": "https://ocpvh3dgz.qnssl.com/public/2017/6/30/d74d37d11bef2a273aa71ab318e728a8.jpg-thumbnail",
+      "width": 225
+    }
+  ],
+  "portrait": "https://ocpvd2g2n.qnssl.com/userInfo/pro_ES9BLcWAE6DztcHrZyFP.jpg",
+  "savePrice": 192,
+  "score": 5,
+  "shopName": "佛山南海桂城丰田4S店",
+  "shopValid": false,
+  "storeId": 625,
+  "thirdLevelCarType": "威驰",
+  "thumbupCount": 0
+}

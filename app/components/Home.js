@@ -9,7 +9,14 @@ import Swiper from "react-native-swiper";
 
 import { HomeStore } from "../stores/home";
 import { bigImages } from "../constants/data";
-import { ServicesGrid, HomeTipcs, Activities } from "./lib";
+import {
+  ServicesGrid,
+  HomeTipcs,
+  Activities,
+  Maintenances,
+  UiButton
+} from "./lib";
+import Comments from "./Comments";
 
 @inject("homeStore")
 @observer
@@ -20,8 +27,8 @@ export default class Home extends Component {
   };
   componentDidMount() {
     this.props.homeStore.getHomeData();
-    // this.props.homeStore.getOrderHyperCommentList();
-    this.location();
+    this.props.homeStore.getOrderHyperCommentList();
+    // this.location();
   }
   location = () => {
     navigator.geolocation.getCurrentPosition(
@@ -37,6 +44,10 @@ export default class Home extends Component {
         enableHighAccuracy: true
       }
     );
+  };
+  loadMoreComments = () => {
+    console.log("listVIew endReacted");
+    this.props.homeStore.getOrderHyperCommentList();
   };
   render() {
     return (
@@ -60,7 +71,20 @@ export default class Home extends Component {
         <ServicesGrid />
         <HomeTipcs />
         <Activities />
-        <Text>123</Text>
+        <Maintenances brands={this.props.homeStore.brandsMinPrices} />
+        <View style={styles.commentsHeader}>
+          <Text style={styles.commentsHeaderTitle}>车主评价</Text>
+        </View>
+        <Comments
+          loadMore={this.loadMoreComments}
+          dataSource={this.props.homeStore.commentDataSource}
+        />
+        <UiButton
+          style={styles.bottomBnt}
+          text="加载更多"
+          fontStyle={styles.bottomBntText}
+          onPress={this.loadMoreComments}
+        />
       </ScrollView>
     );
   }
@@ -76,5 +100,26 @@ const styles = StyleSheet.create({
   bigImage: {
     height: 150,
     width: "auto"
+  },
+  commentsHeader: {
+    paddingVertical: 13,
+    paddingHorizontal: 15,
+    backgroundColor: "#ffffff",
+    borderStyle: "solid",
+    borderBottomWidth: 1,
+    borderBottomColor: "#f7f7f7"
+  },
+  commentsHeaderTitle: {
+    fontSize: 15,
+    color: "#333"
+  },
+  bottomBnt: {
+    backgroundColor: "#ffffff",
+    marginTop: 10,
+    marginBottom: 20,
+    paddingVertical: 10
+  },
+  bottomBntText: {
+    color: "#333333"
   }
 });

@@ -17,7 +17,7 @@ export default class ServiceGrid extends Component {
   // };
   render() {
     // const { services_one, services_two } = this.props;
-    console.log(services_one, services_two);
+    // console.log(services_one, services_two);
     return (
       <View style={styles.container}>
         <View style={styles.row}>
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     justifyContent: "space-around",
-    marginBottom: 30
+    marginBottom: 16
   },
   col: {
     width: 69,

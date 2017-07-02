@@ -7,7 +7,7 @@ import { View, Image, StyleSheet, PixelRatio, Button } from "react-native";
 import { Provider } from "mobx-react";
 import { StackNavigator, TabNavigator } from "react-navigation";
 
-import { Home, Locations } from "./components";
+import { Home, Locations, ServiceNets } from "./components";
 import { TabbarIcon, HomeHeaderLeft } from "./components/lib";
 import * as stores from "./stores";
 import {
@@ -46,7 +46,6 @@ const TabContainer = TabNavigator(
             <HomeHeaderLeft
               location={location}
               onPress={() => {
-                console.log(navigation);
                 navigation.navigate("Locations", { location });
               }}
             />
@@ -54,16 +53,15 @@ const TabContainer = TabNavigator(
           headerTitle: "乐车邦",
           headerBackTitle: null,
           tabBarIcon: ({ focused }) => {
-            console.log(arguments);
             return <TabbarIcon focused={focused} icon="home" />;
           }
         };
       }
     },
     Fours: {
-      screen: Home,
+      screen: ServiceNets,
       navigationOptions: ({ navigation }) => ({
-        tabBarLabel: "4S",
+        tabBarLabel: "4S店",
         headerTitle: "4S店",
         tabBarIcon: ({ focused }) => {
           return <TabbarIcon focused={focused} icon="4s" />;

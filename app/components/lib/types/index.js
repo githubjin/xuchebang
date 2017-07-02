@@ -7,3 +7,8 @@ export type ServiceType = {
   tip: string,
   label: string
 };
+
+export type Section = {
+  data: Object[],
+  title: string
+};
