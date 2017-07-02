@@ -6,6 +6,8 @@ import { View, Text, ListView, StyleSheet, Image } from "react-native";
 import { observer, inject } from "mobx-react";
 import { TopicStore } from "../stores/topics";
 
+import Icon from "react-native-vector-icons/SimpleLineIcons";
+
 @inject("topicStore")
 @observer
 export default class Topics extends Component {
@@ -28,7 +30,7 @@ export default class Topics extends Component {
               {item.author}
             </Text>
             <Text style={styles.meta}>
-              {item.page_view}
+              <Icon name="eye" /> {item.page_view}
             </Text>
           </View>
         </View>
