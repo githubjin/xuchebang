@@ -10,6 +10,7 @@ import Activities from "./Activities";
 import Maintenances from "./Maintenances";
 import UiButton from "./UiButton";
 import BrandTypes from "./BrandTypes";
+import CarList from "./CarList";
 import Loadding from "./Loadding";
 
 export {
@@ -21,5 +22,6 @@ export {
   Maintenances,
   UiButton,
   BrandTypes,
+  CarList,
   Loadding
 };

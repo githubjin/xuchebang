@@ -26,6 +26,7 @@ class ServiceNet {
   @observable reachEnd = false;
 
   storeDetailResults: ServiceNetType[] = [];
+  condition: { carId: number } = {};
   totalPage = 0;
   snDs = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
   showedList: ServiceNetType[] = [];
@@ -57,17 +58,44 @@ class ServiceNet {
     }
   }
 
+  @action
+  filterServiceNets(carId: number) {
+    this.currentPage = 0;
+    this.reachEnd = false;
+    this.condition = { carId };
+    this.loadMore();
+  }
+
   @computed
   get serviceNetDs() {
+    let target_arr = this.filterByCondition();
+    console.log("target_arr-target_arrtarget_arr", target_arr);
+    //
     let start = (this.currentPage - 1) * PAGE_SIZE;
     let end = this.currentPage * PAGE_SIZE;
-    if (end > this.storeDetailResults.length) {
-      end = this.storeDetailResults.length;
+    if (end > target_arr.length) {
+      end = target_arr.length;
     }
-    this.showedList = this.showedList.concat(
-      this.storeDetailResults.slice(start, end)
-    );
+    if (this.currentPage !== 1) {
+      this.showedList = this.showedList.concat(target_arr.slice(start, end));
+    } else {
+      this.showedList = target_arr.slice(start, end);
+    }
+
     return this.snDs.cloneWithRows(this.showedList);
+  }
+  filterByCondition() {
+    if (!this.condition.carId) {
+      return this.storeDetailResults;
+    }
+    return this.storeDetailResults.filter(item => {
+      console.log(
+        item.carBrandTypeIds,
+        this.condition.carId,
+        item.carBrandTypeIds.indexOf(this.condition.carId) !== -1
+      );
+      return item.carBrandTypeIds.indexOf(this.condition.carId) !== -1;
+    });
   }
 }
 

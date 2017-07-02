@@ -108,7 +108,8 @@ class BrandStore {
   parseCarsToSection(results: ResultBrandCar[] = []): Section {
     return results.map(item => ({
       data: item.brandProduceCar,
-      title: item.producerName
+      title: item.producerName,
+      id: item.id
     }));
   }
 }

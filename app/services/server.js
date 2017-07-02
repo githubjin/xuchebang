@@ -18,3 +18,10 @@ export function post(
     headers
   });
 }
+
+export function get(pathName: string, headers: Object = {}): Promise<any> {
+  return fetch(apiUrl(pathName), {
+    method: "get",
+    headers
+  });
+}

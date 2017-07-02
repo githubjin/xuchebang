@@ -7,7 +7,7 @@ import { View, Image, StyleSheet, PixelRatio, Button } from "react-native";
 import { Provider } from "mobx-react";
 import { StackNavigator, TabNavigator } from "react-navigation";
 
-import { Home, Locations, ServiceNets } from "./components";
+import { Home, Locations, ServiceNets, Topics, Mine } from "./components";
 import { TabbarIcon, HomeHeaderLeft } from "./components/lib";
 import * as stores from "./stores";
 import {
@@ -69,7 +69,7 @@ const TabContainer = TabNavigator(
       })
     },
     Topic: {
-      screen: Home,
+      screen: Topics,
       navigationOptions: ({ navigation }) => ({
         title: "头条",
         tabBarIcon: ({ focused }) => {
@@ -78,7 +78,7 @@ const TabContainer = TabNavigator(
       })
     },
     Mine: {
-      screen: Home,
+      screen: Mine,
       navigationOptions: ({ navigation }) => ({
         title: "我的",
         tabBarIcon: ({ focused }) => {

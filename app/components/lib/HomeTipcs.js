@@ -25,19 +25,19 @@ export default class HomeTipcs extends Component {
     };
   }
   componentDidMount() {
-    if (Platform.OS === "android") {
-      UIManager.setLayoutAnimationEnabledExperimental &&
-        UIManager.setLayoutAnimationEnabledExperimental(true);
-    }
+    // if (Platform.OS === "android") {
+    //   UIManager.setLayoutAnimationEnabledExperimental &&
+    //     UIManager.setLayoutAnimationEnabledExperimental(true);
+    // }
     this.timer = setInterval(() => {
       this.setState({
         topicIndex: (this.state.topicIndex + 1) % 3
       });
     }, 3000);
   }
-  componentWillUpdate() {
-    LayoutAnimation.spring();
-  }
+  // componentWillUpdate() {
+  // LayoutAnimation.spring();
+  // }
   componentWillUnmount() {
     clearInterval(this.timer);
   }

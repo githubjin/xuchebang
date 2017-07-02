@@ -18,7 +18,7 @@ import Icon from "react-native-vector-icons/SimpleLineIcons";
 import { ServiceNet as ServiceNetStore } from "../stores/service";
 import { BrandStore } from "../stores/brand";
 import type { ServiceNetType } from "../types";
-import { BrandTypes } from "./lib";
+import { BrandTypes, CarList } from "./lib";
 
 @inject("serviceNetStore", "brandStore")
 @observer
@@ -51,7 +51,12 @@ export default class ServiceNets extends Component {
   loadBrandCarByBrandId = (brandId: number) => {
     this.props.brandStore.listBrandCarsByType(brandId);
   };
+  filterServiceNets = (carId: number) => {
+    this.props.serviceNetStore.filterServiceNets(carId);
+    this.props.brandStore.toggleBrandFilter();
+  };
   render() {
+    const noData = this.props.serviceNetStore.serviceNetDs.getRowCount() === 0;
     return (
       <View style={styles.container}>
         <QueryHeader
@@ -65,42 +70,56 @@ export default class ServiceNets extends Component {
             sections={this.props.brandStore.brandTypes}
             loadBrandTypes={this.loadBrandTypes}
             loadBrandCarByBrandId={this.loadBrandCarByBrandId}
+            cars={this.props.brandStore.cars}
+            filterServiceNets={this.filterServiceNets}
+            toggleBrandFilter={() => {
+              this.props.brandStore.toggleBrandFilter();
+            }}
           />}
-        <ListView
-          enableEmptySections={true}
-          renderRow={this.renderRow}
-          dataSource={this.props.serviceNetStore.serviceNetDs}
-          initialListSize={100}
-          style={styles.list}
-          onEndReachedThreshold={50}
-          onEndReached={this.loadMore}
-        />
+        {!noData &&
+          <ListView
+            enableEmptySections={true}
+            renderRow={this.renderRow}
+            dataSource={this.props.serviceNetStore.serviceNetDs}
+            initialListSize={100}
+            style={styles.list}
+            onEndReachedThreshold={50}
+            onEndReached={this.loadMore}
+          />}
+        {noData && <NoData />}
       </View>
     );
   }
 }
 
+function NoData() {
+  return (
+    <View style={styles.noDataContainer}>
+      <Text style={styles.noDataText}>很抱歉，暂时没有店家。</Text>
+      <Text style={styles.noDataText}>建议您减少筛选条件试试</Text>
+    </View>
+  );
+}
+
 function BrandMaster({
   sections,
   loadBrandTypes,
-  loadBrandCarByBrandId
+  loadBrandCarByBrandId,
+  cars,
+  filterServiceNets,
+  toggleBrandFilter
 }: {
   sections: Object[],
   loadBrandTypes: () => void,
-  loadBrandCarByBrandId: (brandId: number) => void
+  loadBrandCarByBrandId: (brandId: number) => void,
+  cars: Object[],
+  filterServiceNets: (carId: number) => void,
+  toggleBrandFilter: () => void
 }) {
   return (
-    <View style={styles.brandMaster}>
-      <View
-        style={{
-          backgroundColor: "#ffffff",
-          borderTopColor: "#ededee",
-          borderTopWidth: 1,
-          borderStyle: "solid",
-          height: Dimensions.get("window").height * 0.65
-        }}
-      >
-        <TouchableOpacity>
+    <TouchableOpacity style={styles.brandMaster} onPress={toggleBrandFilter}>
+      <View style={styles.maskChild}>
+        <TouchableOpacity onPress={() => filterServiceNets()}>
           <View style={styles.noBrand}>
             <Text style={styles.noBrandText}>品牌不限</Text>
           </View>
@@ -110,8 +129,13 @@ function BrandMaster({
           loadBrandTypes={loadBrandTypes}
           loadBrandCarByBrandId={loadBrandCarByBrandId}
         />
+        <CarList
+          sections={cars}
+          style={styles.carFilter}
+          filterServiceNets={filterServiceNets}
+        />
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 
@@ -356,5 +380,33 @@ const styles = StyleSheet.create({
     fontSize: 15,
     lineHeight: 20,
     color: "#333333"
+  },
+  maskChild: {
+    backgroundColor: "#ffffff",
+    borderTopColor: "#ededee",
+    borderTopWidth: 1,
+    borderStyle: "solid",
+    height: Dimensions.get("window").height * 0.65 + 1
+  },
+  carFilter: {
+    position: "absolute",
+    top: 0,
+    right: 0,
+    width: Dimensions.get("window").width * 0.7,
+    height: Dimensions.get("window").height * 0.65
+  },
+  noDataContainer: {
+    width: "100%",
+    backgroundColor: "#efeff4",
+    alignItems: "center",
+    borderWidth: 1,
+    borderStyle: "solid",
+    borderColor: "#c7c7cb",
+    borderRadius: 5,
+    padding: 20
+  },
+  noDataText: {
+    fontSize: 15,
+    color: "#999999"
   }
 });
