@@ -2,7 +2,16 @@
  * @flow
  */
 import React, { Component } from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  ScrollView,
+  PixelRatio,
+  Dimensions,
+  TouchableOpacity
+} from "react-native";
 import Icon from "react-native-vector-icons/SimpleLineIcons";
 import IonIcon from "react-native-vector-icons/Ionicons";
 import { UiButton } from "./lib";
@@ -10,12 +19,12 @@ import { UiButton } from "./lib";
 export default class Topics extends Component {
   render() {
     return (
-      <View>
-        <Header />
+      <ScrollView>
+        <Header navigation={this.props.navigation} />
         <Statistics />
         <DingDanBox />
         <Others />
-      </View>
+      </ScrollView>
     );
   }
 }
@@ -117,10 +126,10 @@ function OtherItem({ icon, label, color = "#96d20a" }) {
         alignItems: "center",
         paddingVertical: 18,
         borderBottomColor: "#f1f1f1",
-        borderBottomWidth: 1,
+        borderBottomWidth: 1 / PixelRatio.get(),
         borderStyle: "solid",
         borderLeftColor: "#f1f1f1",
-        borderLeftWidth: 1
+        borderLeftWidth: 1 / PixelRatio.get()
       }}
     >
       <IonIcon name={icon} size={19} color={color} />
@@ -170,7 +179,7 @@ function StaticsItem({ num, dw, item }) {
   );
 }
 
-function Header() {
+function Header({ navigation }) {
   return (
     <Image
       source={{
@@ -184,6 +193,9 @@ function Header() {
             style={styles.qdBnt}
             fontStyle={styles.qdBntText}
             text="签到领积分"
+            onPress={() => {
+              navigation.navigate("Demo");
+            }}
           />
         </View>
         <View style={styles.userRow}>
@@ -242,7 +254,7 @@ const styles = StyleSheet.create({
   avatar: {
     width: 60,
     height: 60,
-    borderWidth: 2,
+    borderWidth: 2 / PixelRatio.get(),
     borderColor: "#ffffff",
     borderRadius: 30
   },
@@ -258,7 +270,7 @@ const styles = StyleSheet.create({
   statisticItem: {
     marginTop: 10,
     marginBottom: 6,
-    borderRightWidth: 1,
+    borderRightWidth: 1 / PixelRatio.get(),
     borderRightColor: "#f1f0f0",
     borderStyle: "solid",
     width: "33%",

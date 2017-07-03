@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
   commentContentText: {
     fontSize: 15,
     color: "#333333",
-    lineHeight: 15 * 1.5
+    lineHeight: 22
   },
   images: {
     paddingTop: 5,

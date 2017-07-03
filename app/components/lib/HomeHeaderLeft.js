@@ -2,7 +2,13 @@
  * @flow
  */
 import React, { Component } from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Platform
+} from "react-native";
 import Icon from "react-native-vector-icons/SimpleLineIcons";
 
 import {
@@ -37,13 +43,19 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     height: TOUCHABLE_MIN_HEIGHT,
-    paddingLeft: 15,
-    alignItems: "center"
+    alignItems: "center",
+    ...Platform.select({
+      android: {
+        paddingRight: 15
+      },
+      ios: {
+        paddingLeft: 15
+      }
+    })
   },
   location: {
     fontSize: HEADER_HOME_LEFT_FONT_SIZE,
-    color: FONT_MAIN_COLOR,
-    lineHeight: TOUCHABLE_MIN_LINE_HEIGHT
+    color: FONT_MAIN_COLOR
   },
   icon: {
     marginLeft: 2,

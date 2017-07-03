@@ -2,7 +2,15 @@
  * @flow
  */
 import React, { Component } from "react";
-import { View, Text, StyleSheet, ScrollView, Image } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Image,
+  Dimensions,
+  PixelRatio
+} from "react-native";
 import { observer, inject } from "mobx-react";
 import { NavigationActions } from "react-navigation";
 import Swiper from "react-native-swiper";
@@ -59,6 +67,8 @@ export default class Home extends Component {
           autoplay={true}
           height={150}
           showsPagination={true}
+          loadMinimal={true}
+          loadMinimalSize={3}
         >
           {bigImages.map((url, index) =>
             <Image
@@ -68,6 +78,11 @@ export default class Home extends Component {
             />
           )}
         </Swiper>
+        {/*<Text>
+          {JSON.stringify(Dimensions.get("window"))}
+          {JSON.stringify(Dimensions.get("screen"))}
+          "Scale" : {PixelRatio.get()}
+        </Text>*/}
         <ServicesGrid />
         <HomeTipcs />
         <Activities />
@@ -99,7 +114,7 @@ const styles = StyleSheet.create({
   },
   bigImage: {
     height: 150,
-    width: "auto"
+    width: Dimensions.get("window").width
   },
   commentsHeader: {
     paddingVertical: 13,

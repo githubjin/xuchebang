@@ -3,12 +3,22 @@
  */
 
 import React, { Component } from "react";
-import { View, Image, StyleSheet, PixelRatio, Button } from "react-native";
+import {
+  View,
+  Image,
+  StyleSheet,
+  PixelRatio,
+  Button,
+  Platform
+} from "react-native";
 import { Provider } from "mobx-react";
 import { StackNavigator, TabNavigator } from "react-navigation";
 
 import { Home, Locations, ServiceNets, Topics, Mine } from "./components";
 import { TabbarIcon, HomeHeaderLeft } from "./components/lib";
+// ----------------------demo----------------
+import { ShareMessageExample } from "./components/demo";
+//-----------------------demo----------------
 import * as stores from "./stores";
 import {
   TABBAR_ICON_SIZE,
@@ -30,7 +40,12 @@ const styles = StyleSheet.create({
   headerTitle: {
     color: FONT_MAIN_COLOR,
     // fontSize: HEADER_TITLE_FONT_SIZE / PixelRatio.get()
-    fontSize: HEADER_TITLE_FONT_SIZE
+    fontSize: HEADER_TITLE_FONT_SIZE,
+    ...Platform.select({
+      android: {
+        textAlign: "center"
+      }
+    })
   }
 });
 
@@ -42,15 +57,30 @@ const TabContainer = TabNavigator(
         const { location = "上海" } = navigation.state.params || {};
         return {
           tabBarLabel: "首页",
-          headerLeft: (
-            <HomeHeaderLeft
-              location={location}
-              onPress={() => {
-                navigation.navigate("Locations", { location });
-              }}
-            />
-          ),
+          ...Platform.select({
+            ios: {
+              headerLeft: (
+                <HomeHeaderLeft
+                  location={location}
+                  onPress={() => {
+                    navigation.navigate("Locations", { location });
+                  }}
+                />
+              )
+            },
+            android: {
+              headerRight: (
+                <HomeHeaderLeft
+                  location={location}
+                  onPress={() => {
+                    navigation.navigate("Locations", { location });
+                  }}
+                />
+              )
+            }
+          }),
           headerTitle: "乐车邦",
+          headerTitleStyle: styles.headerTitle,
           headerBackTitle: null,
           tabBarIcon: ({ focused }) => {
             return <TabbarIcon focused={focused} icon="home" />;
@@ -131,6 +161,12 @@ const StackContainer = StackNavigator(
     },
     Login: {
       screen: Home,
+      navigationOptions: {
+        header: null
+      }
+    },
+    Demo: {
+      screen: ShareMessageExample,
       navigationOptions: {
         header: null
       }

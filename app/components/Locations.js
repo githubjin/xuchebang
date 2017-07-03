@@ -8,7 +8,9 @@ export default class Locations extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>定位</Text>
+        <View style={styles.locationHeader}>
+          <Text>定位</Text>
+        </View>
       </View>
     );
   }
@@ -20,5 +22,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#ffffff",
     justifyContent: "center",
     alignItems: "center"
+  },
+  locationHeader: {
+    marginTop: 10,
+    paddingVertical: 13,
+    paddingHorizontal: 20
   }
 });
